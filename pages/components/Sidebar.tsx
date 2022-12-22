@@ -5,7 +5,7 @@ import {RiHome2Fill, RiGroupFill,RiMessage2Fill,
 
 const Sidebar = () => {
   return (
-    <div className='fixed top-0 left-0 bg-gray-900 
+    <div className='top-0 left-0 bg-gray-900 
     h-screen w-[96px] m-0 flex flex-col text-gray-300 
     shadow-lg'>
         <div className='relative flex items-center justify-center mb-[24px] mt-[20px]'>
