@@ -2,8 +2,18 @@ import { ConnectWallet } from '@thirdweb-dev/react'
 import React from 'react'
 import {HiBell} from 'react-icons/hi'
 import {GoChevronDown} from 'react-icons/go'
+import { Session } from 'next-auth'
+import {signIn, signOut} from 'next-auth/react'
 
-const Navbar = () => {
+
+interface Props {
+  session: Session
+}
+
+const Navbar = ({session}: Props) => {
+
+  const userImage = session?.user?.image as string
+  const userName = session?.user?.name as string
   return (
     <div className='flex justify-between text-gray-100 items-center h-24 mx-auto'>
         <div className='flex'>
@@ -18,12 +28,12 @@ const Navbar = () => {
             
             <div className='flex space-x-[8px]'>
             <div className='flex space-x-[6px]'>
-            <img src="assets/cat.webp" alt="logo" className='w-[24px] rounded-full'/>
+            <img src={userImage} alt={userName} className='w-[24px] rounded-full'/>
             <p>
             qwerty@gmail.com
             </p>
             </div>
-            <GoChevronDown size={24}/>
+            <GoChevronDown size={24} onClick={()=>signOut()}/>
             </div>
         </div>
     </div>
