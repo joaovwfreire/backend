@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+    font-family: "Clash Display";
+    src: url("../public/fonts/ClashDisplay-Variable.ttf");
+  }
+
+  @layer base {
+    html {
+      font-family: Clash Display, system-ui, sans-serif;
+    }
+    h1 {
+      font-size: 48px;
+  }
+    h2{
+        font-size: 32px;
+    }
+    h3{
+        font-size: 24px;
+    }
+    body {
+        font-size: 16px;
+    }
+  }
+
+  @layer components {
+    .sidebar-icon {
+      @apply relative flex items-center justify-center
+      h-12 w-12 mt-2 mb-[16px] mx-auto shadow-lg text-iconcolor bg-white/10
+      hover:text-white cursor-pointer rounded-full
+      transition-all duration-100 ease-linear
+    }
+
+    .sidebar-tooltip {
+      @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-full
+      shadow-sm shadow-primary text-black bg-white transition-all 
+      duration-100 scale-0 origin-left
+    }
+  }
