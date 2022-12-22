@@ -15,6 +15,7 @@ const Navbar = () => {
         </div>
         <div className='flex items-center mr-[24px]'>
             <HiBell size="24" className='mr-[16px]'/>
+            
             <div className='flex space-x-[8px]'>
             <div className='flex space-x-[6px]'>
             <img src="assets/cat.webp" alt="logo" className='w-[24px] rounded-full'/>

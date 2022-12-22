@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   const address = useAddress();
 
   return (
-    <div className="flex bg-slate-700 h-screen flex-row">
+    <div className="flex bg-gray-900 h-screen flex-row">
       <Head>
         <title>Game Payy</title>
         <link rel="icon" href="/favicon.ico" />
