@@ -30,7 +30,7 @@ const Navbar = ({session}: Props) => {
             <div className='flex space-x-[6px]'>
             <img src={userImage} alt={userName} className='w-[24px] rounded-full'/>
             <p>
-            qwerty@gmail.com
+            {session?.user?.email}
             </p>
             </div>
             <GoChevronDown size={24} onClick={()=>signOut()}/>

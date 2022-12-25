@@ -5,16 +5,50 @@ import Image from 'next/image'
 import {useSession, signIn, signOut} from 'next-auth/react'
 
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
+import { useState } from 'react';
 
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 import NotSignedInNav from './components/NotSignedInNav';
+import Link from 'next/link';
+
+import axios from "axios";
 
 
 const Home: NextPage = () => {
 
   const address = useAddress();
   const {data: session, status} = useSession();
+  const userEmail = session?.user?.email as string
+  const [epicGamesAuthCode, setEpicGamesAuthCode] = useState('');
+  
+const handleChange = (event) => {
+  setEpicGamesAuthCode(event.target.value)
+}
+
+const linkAccountToEmail = async () => {
+  event?.preventDefault();
+  console.log(epicGamesAuthCode)
+  
+  let gameIdData = await axios({
+    method: 'post',
+    url: '/api/fortnite/epicauth',
+    data: {
+      key: epicGamesAuthCode
+    }
+  })
+  console.log(gameIdData)
+  let response = await axios({
+    method: 'post',
+    url: `/api/fortnite/link`, 
+    data:{
+        email: session?.user?.email,
+        game_id: gameIdData.data
+      }
+})
+    console.log(response)
+    
+}
 
   const renderHeader = () => {
     if (session) return (
@@ -32,8 +66,74 @@ const Home: NextPage = () => {
           <div>
             <Navbar session={session}/>
           </div>
-          <div>
-            Body
+          <div className='text-white justify-content'>
+            <h1>Link Epic games account</h1>
+            <p>To link your account, first login with your google account</p>
+            <p>Retrieve the Authorization code at the following link:</p>
+            <Link className='text-teal-300 mb-5' href='https://www.epicgames.com/id/logout?redirectUrl=https%3A//www.epicgames.com/id/login%3FredirectUrl%3Dhttps%253A%252F%252Fwww.epicgames.com%252Fid%252Fapi%252Fredirect%253FclientId%253D3446cd72694c4a4485d81b77adbb2141%2526responseType%253Dcode' 
+            target='blank'>Authorization code generator</Link>
+            <p>Then paste it in the following field:</p>
+            <br/>
+            <div className="flex justify-center">
+  <div className="mb-3 xl:w-96">
+  <form onSubmit={linkAccountToEmail}></form>
+  <input
+      type="email"
+      className="
+        form-control
+        mb-3
+        block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-gray-100 bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+      "
+      id="exampleFormControlInput5"
+      placeholder= {session?.user?.email || undefined} 
+      aria-label="Disabled input example"
+      disabled
+    />
+    <input
+    value={epicGamesAuthCode} onChange={(e) => {handleChange(e)}}
+      type="text"
+      className="
+        form-control
+        block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+      "
+      id="exampleEmail01"
+      placeholder="Epic games auth key"
+    />
+    <div className="text-sm text-gray-500 mt-1">Authorization key </div>
+    <span
+                    className="">
+                    <button type="submit" 
+                    onClick={linkAccountToEmail}
+                    className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Link account</button>
+                </span>
+  </div>
+</div>
           </div>
         </div>
       </div>
