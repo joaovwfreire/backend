@@ -89,14 +89,23 @@ const Home: NextPage = () => {
       },
     })
       .then((res) => {
+        if(res.status == 200){
         setScore(res.data.overall.score);
         setMatches(res.data.overall.matches);
         setKills(res.data.overall.kills);
         setWins(res.data.overall.wins);
         setWinrate(res.data.overall.winRate);
         setLastmodified(res.data.overall.lastModified);
-
+  
         setShowstats(true);
+      } else{
+        if(res.message){
+        toast.error(res.message)
+        }        
+        if(res.error){
+          toast.error(res.error)
+        }
+      }
       })
       .catch((e) => {
         toast.error(e);
