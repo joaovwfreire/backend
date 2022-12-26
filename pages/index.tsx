@@ -7,6 +7,8 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import { useState } from "react";
 
+import toast from 'react-hot-toast';
+
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import NotSignedInNav from "./components/NotSignedInNav";
@@ -19,6 +21,7 @@ const Home: NextPage = () => {
   const { data: session, status } = useSession();
   const userEmail = session?.user?.email as string;
   const [epicGamesAuthCode, setEpicGamesAuthCode] = useState("");
+  const [epicName, setEpicName] = useState('');
   const [score, setScore] = useState("");
   const [matches, setMatches] = useState("");
   const [wins, setWins] = useState("");
@@ -27,51 +30,75 @@ const Home: NextPage = () => {
   const [lastmodified, setLastmodified] = useState("");
   const [showstats, setShowstats] = useState(false);
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setEpicGamesAuthCode(event.target.value);
   };
 
   const linkAccountToEmail = async () => {
     event?.preventDefault();
-    console.log(epicGamesAuthCode);
-
+  
     setShowstats(false);
-
-    let gameIdData = await axios({
-      method: "post",
-      url: "/api/fortnite/epicauth",
+    
+    toast.loading("Fetching account's data")
+    await axios({
+      method: 'post',
+      url: '/api/fortnite/epicauth',
       data: {
-        key: epicGamesAuthCode,
-      },
-    });
-    console.log(gameIdData);
-    let response = await axios({
-      method: "post",
-      url: `/api/fortnite/link`,
-      data: {
-        email: session?.user?.email,
-        game_id: gameIdData.data,
-      },
-    });
-    console.log(response);
+        key: epicGamesAuthCode
+      }
+    }).then((response)=>{
+      
+      setEpicName(response?.data?.userName)
+      toast.success(`Succesfully fetched ${epicName}.`)
+      toast.loading("Updating database")
+  
+      addGameIdToDatabase(response?.data?.id)
+      fetchGameData(response?.data?.id)
+  
+    }).catch((e) =>{
+      
+      toast.error(`${e.message} Please try generating a new authorization code.`)
+    })
+  
+  }
 
-    let gameStats = await axios({
+  const addGameIdToDatabase = async (id: String) => {
+    await axios({
+      method: 'post',
+      url: `/api/fortnite/link`, 
+      data:{
+          email: session?.user?.email,
+          game_id: id
+        }
+    }).then((res) =>{
+  
+      toast.success("Succesfully updated credentials")
+    }).catch((e) => {
+  
+     toast.error("Database fail, please contact the admin")
+    })
+  }
+  
+  const fetchGameData = async (id: String) => {
+    await axios({
       method: "post",
       url: `/api/fortnite/stats`,
       data: {
-        id: gameIdData.data,
+        id: id,
       },
-    });
-
-    setScore(gameStats.data.overall.score);
-    setMatches(gameStats.data.overall.matches);
-    setKills(gameStats.data.overall.kills);
-    setWins(gameStats.data.overall.wins);
-    setWinrate(gameStats.data.overall.winRate);
-    setLastmodified(gameStats.data.overall.lastModified);
-
-    setShowstats(true);
-  };
+    }).then((res) => {
+      setScore(res.data.overall.score);
+      setMatches(res.data.overall.matches);
+      setKills(res.data.overall.kills);
+      setWins(res.data.overall.wins);
+      setWinrate(res.data.overall.winRate);
+      setLastmodified(res.data.overall.lastModified);
+  
+      setShowstats(true);
+    }).catch((e) => {
+      toast.error(e)
+    })
+  }
 
   const renderHeader = () => {
     if (session)

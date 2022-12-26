@@ -4,18 +4,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 require("dotenv").config();
 
 async function getId(eMail: string) {
+
   client.connect();
   const collection = client.db("gamePayy").collection("users");
-  // perform actions on the collection object
-  const userData = await User.findOne({ email: eMail });
-  console.log(userData);
 
+  const userData = await User.findOne({ email: eMail });
   return userData;
 }
 
-type Data = {
-  blockNumber: number;
-};
 
 export default async function handler(
   req: NextApiRequest,
@@ -27,7 +23,7 @@ export default async function handler(
     try {
       const stats = await getId(userEmail);
 
-      res.json(stats);
+      res.status(200).json(stats);
     } catch (e) {
       res.status(400).json(e);
     }

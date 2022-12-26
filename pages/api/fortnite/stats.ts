@@ -21,9 +21,6 @@ async function getStats(id: number) {
   }
 }
 
-type Data = {
-  blockNumber: number;
-};
 
 export default async function handler(
   req: NextApiRequest,
@@ -35,7 +32,7 @@ export default async function handler(
     try {
       const stats = await getStats(userId);
 
-      res.json(stats);
+      res.status(200).json(stats);
     } catch (e) {
       res.status(400).json(e);
     }

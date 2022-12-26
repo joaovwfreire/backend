@@ -13,9 +13,7 @@ export default async function handler(
     try {
       const client = await clientPromise;
       const db = client.db("gamepayy");
-      console.log(1);
-      console.log(email);
-      console.log(db);
+
       const upsertAction = await db
         .collection("users")
         .updateOne(
@@ -23,10 +21,9 @@ export default async function handler(
           { $set: { gameId: gameId } },
           { upsert: true }
         );
-      console.log(upsertAction);
-      res.json(upsertAction);
+      res.status(201).json(upsertAction);
     } catch (e) {
-      console.error(e);
+
       throw new Error(e as string).message;
     }
   }
