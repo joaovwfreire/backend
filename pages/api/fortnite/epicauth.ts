@@ -1,12 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
-const { Client } = require('fnbr');
+import type { NextApiRequest, NextApiResponse } from "next";
+const { Client } = require("fnbr");
 
 async function getAccountData(key: string){
 
   const auth = { authorizationCode: key };
       
-  const client = new Client( { auth });
+  const client = new Client({ auth });
   await client.login();
   
   return ({id: client.user.id, userName: client.user.displayName});
