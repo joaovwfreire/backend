@@ -99,15 +99,14 @@ const Home: NextPage = () => {
           setLastmodified(res.data.overall.lastModified);
 
           setShowstats(true);
+        } else {
+          if (res.message) {
+            toast.error(res.message);
+          }
+          if (res.error) {
+            toast.error(res.error);
+          }
         }
-        // else {
-        //   if (res.message) {
-        //     toast.error(res.message);
-        //   }
-        //   if (res.error) {
-        //     toast.error(res.error);
-        //   }
-        // }
       })
       .catch((e) => {
         toast.error(e);
