@@ -29,6 +29,7 @@ const Home: NextPage = () => {
   const [winrate, setWinrate] = useState("");
   const [lastmodified, setLastmodified] = useState("");
   const [showstats, setShowstats] = useState(false);
+  const [nomatches, setNomatches] = useState(false);
 
   const handleChange = (event: any) => {
     setEpicGamesAuthCode(event.target.value);
