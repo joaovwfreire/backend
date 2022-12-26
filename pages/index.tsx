@@ -204,28 +204,48 @@ const Home: NextPage = () => {
               <div className="flex flex-col">
                 <h3>Game Stats</h3>
                 {showstats ? (
-                  <div className="text-lg">
-                    <p>
-                      Score: <span className="text-primary">{score}</span>
-                    </p>
-                    <p>
-                      Matches: <span className="text-primary">{matches}</span>
-                    </p>
-                    <p>
-                      Wins: <span className="text-primary">{wins}</span>
-                    </p>
-                    <p>
-                      Kills: <span className="text-primary">{kills}</span>
-                    </p>
-                    <p>
-                      Winrate: <span className="text-primary">{winrate}</span>
-                    </p>
-                    <p>
-                      Last Modifed:{" "}
-                      <span className="text-primary">{lastmodified}</span>
-                    </p>
+                  <div className="flex flex-row justify-between px-2">
+                    <div></div>
+
+                    <div className="flex flex-col">
+                      <div>
+                        <div className="text-gray-500">win/loss</div>
+                        <div>12/143</div>
+                      </div>
+                      <div>
+                        <div className="text-gray-500">Matches played</div>
+                        <div>19</div>
+                      </div>
+                      <div>
+                        <div className="text-gray-500">EOL</div>
+                        <div>1234</div>
+                      </div>
+                    </div>
+
+                    <div>graph</div>
                   </div>
                 ) : (
+                  // <div className="text-lg">
+                  //   <p>
+                  //     Score: <span className="text-primary">{score}</span>
+                  //   </p>
+                  //   <p>
+                  //     Matches: <span className="text-primary">{matches}</span>
+                  //   </p>
+                  //   <p>
+                  //     Wins: <span className="text-primary">{wins}</span>
+                  //   </p>
+                  //   <p>
+                  //     Kills: <span className="text-primary">{kills}</span>
+                  //   </p>
+                  //   <p>
+                  //     Winrate: <span className="text-primary">{winrate}</span>
+                  //   </p>
+                  //   <p>
+                  //     Last Modifed:{" "}
+                  //     <span className="text-primary">{lastmodified}</span>
+                  //   </p>
+                  // </div>
                   <p className="text-primary">
                     Link your account to see the stats
                   </p>
