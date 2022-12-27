@@ -89,7 +89,7 @@ const Home: NextPage = () => {
         id: id,
       },
     })
-      .then((res) => {
+      .then((res: any) => {
         if (res.status == 200) {
           setScore(res.data.overall.score);
           setMatches(res.data.overall.matches);
