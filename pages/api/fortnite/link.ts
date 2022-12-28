@@ -1,11 +1,21 @@
+import type { NextApiRequest, NextApiResponse } from "next";
 import { User } from "../../../server/mongo/models.js";
 import clientPromise from "../../../server/mongo/middleware/mongodb";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth]"
+
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
+  const session = await unstable_getServerSession(req, res, authOptions)
+ 
+  if (!session) {
+    
+    res.status(400).json({Error: "No session"});
+    
+  } else{
   const email = req.body.email;
   const gameId = req.body.game_id;
 
@@ -27,4 +37,5 @@ export default async function handler(
       throw new Error(e as string).message;
     }
   }
+}
 }

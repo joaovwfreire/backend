@@ -1,31 +1,22 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
-
-async function getStats(id: number) {
-  let response = await axios.get(
-    `https://fortnite-api.com/v2/stats/br/v2/${id}`,
-    {
-      headers: {
-        Authorization: `${process.env.API_KEY}`,
-      },
-    }
-  );
-
-  if (response.status == 200) {
-    const stats = response.data.data.stats.all;
-
-    return stats;
-  } else {
-    return response.status;
-  }
-}
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth]"
+import { getStats } from "../../../utils/requests";
 
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
+
+  const session = await unstable_getServerSession(req, res, authOptions)
+
+  if (!session) {
+    
+    res.status(400).json({Error: "No session"});
+    
+  } else{
   const userId = req.body.id;
 
   if (req.method === "POST" && userId) {
@@ -37,4 +28,5 @@ export default async function handler(
       res.status(400).json(e);
     }
   }
+}
 }

@@ -1,22 +1,27 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-const { Client } = require("fnbr");
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth]"
+import { getAccountData } from "../../../utils/requests";
 
-async function getAccountData(key: string){
 
-  const auth = { authorizationCode: key };
-      
-  const client = new Client({ auth });
-  await client.login();
-  
-  return ({id: client.user.id, userName: client.user.displayName});
-}
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ){
-    
+  const session = await unstable_getServerSession(req, res, authOptions)
+
+  if (!session) {
+    res.status(400).json({Error: "No session"});
+    return {
+      redirect: {
+        destination: '/',
+        permanent: true,
+      },
+    }
+  } else{
+
   const key = req.body.key;
     
   if (req.method === 'POST' && key) {
@@ -29,4 +34,5 @@ export default async function handler(
       res.status(400).json(e);
     }
   }
+}
 }
