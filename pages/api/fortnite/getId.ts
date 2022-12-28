@@ -1,22 +1,24 @@
 import { User } from "../../../server/mongo/models.js";
-import client from "../../../server/mongo/dbSetup";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth]"
+import { getId } from "../../../utils/requests";
 require("dotenv").config();
 
-async function getId(eMail: string) {
-
-  client.connect();
-  const collection = client.db("gamePayy").collection("users");
-
-  const userData = await User.findOne({ email: eMail });
-  return userData;
-}
 
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
+  
+    const session = await unstable_getServerSession(req, res, authOptions)
+   
+    if (!session) {
+      
+      res.status(400).json({Error: "No session"});
+      
+    } else{
   const userEmail = req.body.email;
 
   if (req.method === "POST" && userEmail) {
@@ -28,4 +30,5 @@ export default async function handler(
       res.status(400).json(e);
     }
   }
+}
 }
