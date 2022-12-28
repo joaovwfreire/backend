@@ -241,25 +241,6 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
-
-          {/* Challenges grid */}
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-x-[11px] gap-y-[29px] px-6">
-            {/* Card 1 */}
-            <div className="bg-white h-[230px] flex flex-row justify-between">
-              <div>Title</div>
-
-              <div>Buttons</div>
-            </div>
-
-            {/* Card 2 */}
-            <div className="bg-white h-[230px]"></div>
-
-            {/* Card 3 */}
-            <div className="bg-white h-[230px] "></div>
-
-            {/* Card 4 */}
-            <div className="bg-white h-[230px]"></div>
-          </div>
         </div>
       );
     return (
