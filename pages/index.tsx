@@ -30,6 +30,26 @@ const Home: NextPage = () => {
   const [winrate, setWinrate] = useState("");
   const [lastmodified, setLastmodified] = useState("");
   const [showstats, setShowstats] = useState(false);
+  const [count, setCount] = useState("");
+
+  var countDownDate = new Date("Jan 5, 2023 15:37:25").getTime();
+
+  // Counter
+  var x = setInterval(function () {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    setCount(hours + ":" + minutes + ":" + seconds);
+    if (distance < 0) {
+      clearInterval(x);
+      setCount("Started");
+    }
+  }, 1000);
 
   const handleChange = (event: any) => {
     setEpicGamesAuthCode(event.target.value);
@@ -292,7 +312,7 @@ const Home: NextPage = () => {
 
                           <div className="flex flex-col justify-between">
                             <div>
-                              <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400 hover:text-black">
+                              <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20">
                                 JOIN
                               </button>
                             </div>
@@ -312,7 +332,7 @@ const Home: NextPage = () => {
                       </div>
 
                       {/* card 2 */}
-                      <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover.png')] h-[230px] w-full bg-cover">
+                      <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover1.png')] h-[230px] w-full bg-cover">
                         <div className="flex flex-row justify-between p-6 h-full">
                           <div className="flex flex-col justify-between">
                             <h3 className="flex flex-row items-center text-white">
@@ -322,8 +342,8 @@ const Home: NextPage = () => {
                               </span>
                             </h3>
                             <div className="flex flex-row justify-evenly items-start">
-                              <button className="bg-black text-red-500 px-4 py-2 rounded-full">
-                                13:05:28
+                              <button className="bg-black text-red-500 px-4 py-2 w-24 rounded-full">
+                                {count}
                               </button>
                               <button className="bg-black text-gray-400 px-4 py-2 rounded-full">
                                 PC/Xbox/PS5
@@ -357,7 +377,7 @@ const Home: NextPage = () => {
 
                           <div className="flex flex-col justify-between">
                             <div>
-                              <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400 hover:text-black">
+                              <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20">
                                 JOIN
                               </button>
                             </div>
