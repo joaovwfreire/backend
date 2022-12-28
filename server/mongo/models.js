@@ -23,5 +23,5 @@ const GameAccountsSchema = mongoose.Schema({
 
 })
 
-export const User = mongoose.model('Users', UserSchema)
-export const GameAccounts = mongoose.model('GameAccounts', GameAccountsSchema)
+export const User = mongoose.models.User || mongoose.model('Users', UserSchema);
+export const GameAccounts = mongoose.model('GameAccounts', GameAccountsSchema);
