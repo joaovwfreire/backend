@@ -271,7 +271,7 @@ const Home: NextPage = () => {
                         <div className="flex flex-row justify-between p-6 h-full">
                           <div className="flex flex-col justify-between">
                             <h3 className="flex flex-row items-center text-white">
-                              Madden summer challenge{" "}
+                              Fortnite summer challenge{" "}
                               <span>
                                 <RiSwordFill size="24" color="#FF6AF6" />
                               </span>
@@ -336,7 +336,7 @@ const Home: NextPage = () => {
                         <div className="flex flex-row justify-between p-6 h-full">
                           <div className="flex flex-col justify-between">
                             <h3 className="flex flex-row items-center text-white">
-                              Madden summer challenge{" "}
+                              Fortnite summer challenge{" "}
                               <span>
                                 <RiTrophyFill size="24" color="#FF8A00" />
                               </span>
