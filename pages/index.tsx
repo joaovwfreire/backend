@@ -267,134 +267,146 @@ const Home: NextPage = () => {
                     </div>
                     <div className="grid grid-cols-2 px-6 gap-x-3">
                       {/* card1 */}
-                      <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover.png')] h-[230px] w-full bg-cover">
-                        <div className="flex flex-row justify-between p-6 h-full">
-                          <div className="flex flex-col justify-between">
-                            <h3 className="flex flex-row items-center text-white">
-                              Fortnite summer challenge{" "}
-                              <span>
-                                <RiSwordFill size="24" color="#FF6AF6" />
-                              </span>
-                            </h3>
-                            <div className="flex flex-row justify-evenly items-start">
-                              <button className="bg-black text-primary px-4 py-2 rounded-full">
-                                Started
-                              </button>
-                              <button className="bg-black text-gray-400 px-4 py-2 rounded-full">
-                                PC/Xbox/PS5
-                              </button>
-                              <button className="bg-black text-blue-500 px-4 py-2 rounded-full">
-                                Free
-                              </button>
-                            </div>
-
-                            <div className="grid grid-cols-2 grid-rows-2">
-                              <div className="flex flex-col">
-                                <div className="text-[#AAB4BF]">Entry Fee</div>
-                                <div>Free</div>
+                      <Link href={"/challenges/1"}>
+                        <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover.png')] h-[230px] w-full bg-cover">
+                          <div className="flex flex-row justify-between p-6 h-full">
+                            <div className="flex flex-col justify-between">
+                              <h3 className="flex flex-row items-center text-white">
+                                Fortnite summer challenge{" "}
+                                <span>
+                                  <RiSwordFill size="24" color="#FF6AF6" />
+                                </span>
+                              </h3>
+                              <div className="flex flex-row justify-evenly items-start">
+                                <button className="bg-black text-primary px-4 py-2 rounded-full">
+                                  Started
+                                </button>
+                                <button className="bg-black text-gray-400 px-4 py-2 rounded-full">
+                                  PC/Xbox/PS5
+                                </button>
+                                <button className="bg-black text-blue-500 px-4 py-2 rounded-full">
+                                  Free
+                                </button>
                               </div>
-                              <div className="flex flex-col">
-                                <div className="text-[#AAB4BF]">
-                                  Skill Level
+
+                              <div className="grid grid-cols-2 grid-rows-2">
+                                <div className="flex flex-col">
+                                  <div className="text-[#AAB4BF]">
+                                    Entry Fee
+                                  </div>
+                                  <div>Free</div>
                                 </div>
-                                <div>All</div>
-                              </div>
-                              <div className="flex flex-col">
-                                <div className="text-[#AAB4BF]">Team Size</div>
-                                <div>All</div>
-                              </div>
-                              <div className="flex flex-col">
-                                <div className="text-[#AAB4BF]">Region</div>
-                                <div>All</div>
+                                <div className="flex flex-col">
+                                  <div className="text-[#AAB4BF]">
+                                    Skill Level
+                                  </div>
+                                  <div>All</div>
+                                </div>
+                                <div className="flex flex-col">
+                                  <div className="text-[#AAB4BF]">
+                                    Team Size
+                                  </div>
+                                  <div>All</div>
+                                </div>
+                                <div className="flex flex-col">
+                                  <div className="text-[#AAB4BF]">Region</div>
+                                  <div>All</div>
+                                </div>
                               </div>
                             </div>
-                          </div>
 
-                          <div className="flex flex-col justify-between">
-                            <div>
-                              <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20">
-                                JOIN
-                              </button>
-                            </div>
-                            <div className="flex flex-col items-end">
-                              <div>PRIZE POOL</div>
+                            <div className="flex flex-col justify-between">
                               <div>
-                                <h2 className="flex flex-row items-center text-white">
-                                  <span>
-                                    <RiCoinFill size={24} color="FFC700" />
-                                  </span>
-                                  3000
-                                </h2>
+                                <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20">
+                                  JOIN
+                                </button>
+                              </div>
+                              <div className="flex flex-col items-end">
+                                <div>PRIZE POOL</div>
+                                <div>
+                                  <h2 className="flex flex-row items-center text-white">
+                                    <span>
+                                      <RiCoinFill size={24} color="FFC700" />
+                                    </span>
+                                    3000
+                                  </h2>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </Link>
 
                       {/* card 2 */}
-                      <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover1.png')] h-[230px] w-full bg-cover">
-                        <div className="flex flex-row justify-between p-6 h-full">
-                          <div className="flex flex-col justify-between">
-                            <h3 className="flex flex-row items-center text-white">
-                              Fortnite summer challenge{" "}
-                              <span>
-                                <RiTrophyFill size="24" color="#FF8A00" />
-                              </span>
-                            </h3>
-                            <div className="flex flex-row justify-evenly items-start">
-                              <button className="bg-black text-red-500 px-4 py-2 w-24 rounded-full">
-                                {count}
-                              </button>
-                              <button className="bg-black text-gray-400 px-4 py-2 rounded-full">
-                                PC/Xbox/PS5
-                              </button>
-                              <button className="bg-black text-blue-500 px-4 py-2 rounded-full">
-                                Free
-                              </button>
-                            </div>
-
-                            <div className="grid grid-cols-2 grid-rows-2">
-                              <div className="flex flex-col">
-                                <div className="text-[#AAB4BF]">Entry Fee</div>
-                                <div>Free</div>
+                      <Link href={"/challenges/2"}>
+                        <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover1.png')] h-[230px] w-full bg-cover">
+                          <div className="flex flex-row justify-between p-6 h-full">
+                            <div className="flex flex-col justify-between">
+                              <h3 className="flex flex-row items-center text-white">
+                                Fortnite summer challenge{" "}
+                                <span>
+                                  <RiTrophyFill size="24" color="#FF8A00" />
+                                </span>
+                              </h3>
+                              <div className="flex flex-row justify-evenly items-start">
+                                <button className="bg-black text-red-500 px-4 py-2 w-24 rounded-full">
+                                  {count}
+                                </button>
+                                <button className="bg-black text-gray-400 px-4 py-2 rounded-full">
+                                  PC/Xbox/PS5
+                                </button>
+                                <button className="bg-black text-blue-500 px-4 py-2 rounded-full">
+                                  Free
+                                </button>
                               </div>
-                              <div className="flex flex-col">
-                                <div className="text-[#AAB4BF]">
-                                  Skill Level
+
+                              <div className="grid grid-cols-2 grid-rows-2">
+                                <div className="flex flex-col">
+                                  <div className="text-[#AAB4BF]">
+                                    Entry Fee
+                                  </div>
+                                  <div>Free</div>
                                 </div>
-                                <div>All</div>
-                              </div>
-                              <div className="flex flex-col">
-                                <div className="text-[#AAB4BF]">Team Size</div>
-                                <div>All</div>
-                              </div>
-                              <div className="flex flex-col">
-                                <div className="text-[#AAB4BF]">Region</div>
-                                <div>All</div>
+                                <div className="flex flex-col">
+                                  <div className="text-[#AAB4BF]">
+                                    Skill Level
+                                  </div>
+                                  <div>All</div>
+                                </div>
+                                <div className="flex flex-col">
+                                  <div className="text-[#AAB4BF]">
+                                    Team Size
+                                  </div>
+                                  <div>All</div>
+                                </div>
+                                <div className="flex flex-col">
+                                  <div className="text-[#AAB4BF]">Region</div>
+                                  <div>All</div>
+                                </div>
                               </div>
                             </div>
-                          </div>
 
-                          <div className="flex flex-col justify-between">
-                            <div>
-                              <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20">
-                                JOIN
-                              </button>
-                            </div>
-                            <div className="flex flex-col items-end">
-                              <div>PRIZE POOL</div>
+                            <div className="flex flex-col justify-between">
                               <div>
-                                <h2 className="flex flex-row items-center text-white">
-                                  <span>
-                                    <RiCoinFill size={24} color="FFC700" />
-                                  </span>
-                                  3000
-                                </h2>
+                                <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20">
+                                  JOIN
+                                </button>
+                              </div>
+                              <div className="flex flex-col items-end">
+                                <div>PRIZE POOL</div>
+                                <div>
+                                  <h2 className="flex flex-row items-center text-white">
+                                    <span>
+                                      <RiCoinFill size={24} color="FFC700" />
+                                    </span>
+                                    3000
+                                  </h2>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     </div>
                   </div>
                 ) : (
