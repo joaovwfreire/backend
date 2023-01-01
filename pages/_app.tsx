@@ -9,6 +9,8 @@ import Footer from "./components/Footer";
 import toast, { Toaster } from "react-hot-toast";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import Head from "next/head";
+import Layout from "./components/Layout";
 
 // Polygon Mumbai
 const activeChainId = ChainId.Mumbai;
@@ -17,6 +19,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThirdwebProvider desiredChainId={activeChainId}>
       <SessionProvider session={pageProps.session}>
+        <Head>
+          <title>Game Payy</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <Toaster
           position="top-right"
           reverseOrder={false}
@@ -42,7 +48,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             },
           }}
         />
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
         <footer>
           <Footer />
         </footer>

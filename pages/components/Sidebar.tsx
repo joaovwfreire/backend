@@ -8,15 +8,19 @@ import {
   RiQuestionnaireFill,
 } from "react-icons/ri";
 
+import Image from "next/image";
+
+import logo from "../../public/assets/logo.png";
+
 const Sidebar = () => {
   return (
     <div
       className="top-0 left-0 bg-gray-900 
-    h-screen w-[96px] m-0 flex flex-col text-gray-300 
-    shadow-lg"
+    h-full w-[96px] m-0 flex flex-col text-gray-300 
+    shadow-lg relative"
     >
       <div className="relative flex items-center justify-center mb-[24px] mt-[20px]">
-        <img src="./assets/logo.png" alt="" className="w-[40px]" />
+        <Image src={logo} width="40" alt="logo" />
       </div>
       <SideBarIcon icon={<RiHome2Fill size="20" />} text="Home" />
       <SideBarIcon icon={<RiGroupFill size="20" />} text="Friends" />
