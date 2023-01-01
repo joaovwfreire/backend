@@ -12,7 +12,7 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
 
-    const gameId = req.body.game_id;
+  const gameId = req.body.game_id;
   const challengeId = req.body.challenge_id;
 
   if (req.method === "POST" && gameId && challengeId) {
@@ -25,22 +25,19 @@ export default async function handler(
         const getAction = await db
           .collection("challengeInstances")
           .findOne(
-            { challengeId: 1, gameId: gameId },
-            
+            { challengeId: 1, gameId: gameId }
           );
 
        const initial_response = getAction?.initialStats.overall;
        const currentStats = stats.overall;
-console.log(initial_response)
-console.log(currentStats)
+
        const getChallenge = await db
           .collection("challenges")
           .findOne(
-            { id: 1},
-            
+            { id: 1 }
           );
         const requirements = getChallenge?.statusChange;
-console.log(requirements)
+
         const response = await checkChallenge(initial_response, currentStats, requirements);
         if (response){
           res.status(200).json("Challenge solved");   
