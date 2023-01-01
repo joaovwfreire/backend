@@ -451,3 +451,88 @@ if requirements.playersOutlived != 0 {
 
 For modularity purposes, the comparison function compares all overall stats variables. It enables the team to introduce new challenges to GamePayy without requiring very specific code.
 This facilitates testing, induces less-human error and improves the development cycle.
+
+
+Update 01/01/23:
+
+Fortnite actually monitors stats as following:
+Squad games:
+    wins
+    top3
+    top6
+
+Duo games:
+    wins
+    top5
+    top12
+
+Solo games:
+    wins
+    top10
+    top25
+
+A top10 position, adds 1 to top10 and to top25.
+
+
+if requirements.top25 != 0 {
+    
+    pointsDifference += 
+        
+        (currentStats.top25 - initialStats.top25);
+    
+    responseForPositiveLogic(requirements.top25, pointsDifference);
+        
+}
+
+if requirements.top12 != 0 {
+    pointsDifference += 
+        
+        (currentStats.top12 - initialStats.top12);
+    
+    responseForPositiveLogic(requirements.top12, pointsDifference);
+}
+
+if requirements.top10 != 0 {
+    pointsDifference += 
+        
+        (currentStats.top10 - initialStats.top10);
+    
+    responseForPositiveLogic(requirements.top10, pointsDifference);
+}
+
+if requirements.top6 != 0 {
+    pointsDifference += 
+        
+        (currentStats.top6 - initialStats.top6);
+    
+    responseForPositiveLogic(requirements.top6, pointsDifference);
+}
+
+if requirements.top5 != 0 {
+    pointsDifference += 
+        
+        (currentStats.top5 - initialStats.top5);
+    
+    responseForPositiveLogic(requirements.top5, pointsDifference);
+}
+
+if requirements.top3 != 0 {
+    pointsDifference += 
+        
+        (currentStats.top3 - initialStats.top3);
+    
+    responseForPositiveLogic(requirements.top3, pointsDifference);
+}
+
+Which brings us to a much more generic points difference check:
+
+for (key in requirements) {
+    if (requirements[key] != undefined){
+        if (currentStats[key] - initialStats[key] >= requirements[key]){
+            return true;
+        }
+        return false;
+    }
+}
+
+I am happy to make those almost 150 lines of code become 7 hehe.
