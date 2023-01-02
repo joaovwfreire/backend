@@ -1,23 +1,19 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import { useState } from "react";
 
 import toast from "react-hot-toast";
 import { RiSwordFill, RiCoinFill, RiTrophyFill } from "react-icons/ri";
-
-import Sidebar from "./components/Sidebar";
-import Navbar from "./components/Navbar";
-import NotSignedInNav from "./components/NotSignedInNav";
 import Link from "next/link";
 
 import axios from "axios";
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ facts }: any) => {
   const address = useAddress();
   const { data: session, status } = useSession();
   const userEmail = session?.user?.email as string;
@@ -132,9 +128,34 @@ const Home: NextPage = () => {
       });
   };
 
-  const renderHeader = () => {
-    if (session)
-      return (
+  const checkUser = async () => {
+    await axios({
+      method: "post",
+      url: `/api/fortnite/getId`,
+      data: {
+        email: session?.user?.email,
+      },
+    })
+      .then((res: any) => {
+        if (res.status == 200) {
+          console.log(res.data);
+        } else {
+          if (res.message) {
+            toast.error(res.message);
+          }
+          if (res.error) {
+            toast.error(res.error);
+          }
+        }
+      })
+      .catch((e) => {
+        toast.error(e);
+      });
+  };
+
+  return (
+    <>
+      {session ? (
         <div className="text-white justify-content bg-gray-900 px-4 h-screen">
           <h1>Link Epic games account</h1>
           <p>To link your account, first login with your google account</p>
@@ -154,23 +175,23 @@ const Home: NextPage = () => {
               <input
                 type="email"
                 className="
-        form-control
-        mb-3
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-gray-100 bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
+      form-control
+      mb-3
+      block
+      w-full
+      px-3
+      py-1.5
+      text-base
+      font-normal
+      text-gray-700
+      bg-gray-100 bg-clip-padding
+      border border-solid border-gray-300
+      rounded
+      transition
+      ease-in-out
+      m-0
+      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+    "
                 id="exampleFormControlInput5"
                 placeholder={session?.user?.email || undefined}
                 aria-label="Disabled input example"
@@ -183,22 +204,22 @@ const Home: NextPage = () => {
                 }}
                 type="text"
                 className="
-        form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
+      form-control
+      block
+      w-full
+      px-3
+      py-1.5
+      text-base
+      font-normal
+      text-gray-700
+      bg-white bg-clip-padding
+      border border-solid border-gray-300
+      rounded
+      transition
+      ease-in-out
+      m-0
+      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+    "
                 id="exampleEmail01"
                 placeholder="Epic games auth key"
               />
@@ -212,6 +233,9 @@ const Home: NextPage = () => {
                   className="inline-block px-6 py-2.5 bg-primary text-black font-medium text-xs leading-tight uppercase hover:bg-[#51AD51] transition duration-150 ease-in-out cursor-pointer"
                 >
                   Link account
+                </button>
+                <button type="submit" onClick={checkUser}>
+                  Check
                 </button>
               </span>
             </div>
@@ -388,27 +412,40 @@ const Home: NextPage = () => {
             )}
           </div>
         </div>
-      );
-    return (
-      <div className="flex bg-gray-900 h-screen flex-row">
-        <Head>
-          <title>Game Payy</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-
-        <div>
-          <Sidebar />
-        </div>
-
-        <div className="flex flex-col w-full">
-          <div>
-            <NotSignedInNav />
+      ) : (
+        <div className="flex bg-gray-900 h-screen flex-row">
+          <div className="flex flex-col w-full">
+            <div className="text-gray-200">No linked account</div>
           </div>
         </div>
-      </div>
-    );
-  };
-  return <>{renderHeader()}</>;
+      )}
+    </>
+  );
 };
 
 export default Home;
+
+function fetchFact() {
+  //Just a simple get request which gets back a fact in a JSON object
+  return axios
+    .get("https://uselessfacts.jsph.pl//random.json?language=en")
+    .then((res) => {
+      return res.data;
+    });
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const sessions = await getSession();
+  const promises = [...new Array(Number(10))].map(() => fetchFact());
+
+  const facts = await Promise.all(promises);
+  //console.log(facts);
+  console.log("Hi from the server!");
+  console.log("Count:", sessions);
+  console.log("Facts:", facts);
+  return {
+    props: {
+      facts,
+    },
+  };
+};

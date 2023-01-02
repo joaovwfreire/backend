@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import React from "react";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import NotSignedInNav from "./NotSignedInNav";
 import Sidebar from "./Sidebar";
 
 const Layout = ({ children }: any) => {
@@ -12,7 +13,8 @@ const Layout = ({ children }: any) => {
         <Sidebar />
       </div>
       <div className="w-full">
-        <Navbar session={session!} />
+        {session ? <Navbar session={session!} /> : <NotSignedInNav />}
+
         <main>{children}</main>
       </div>
     </div>

@@ -13,7 +13,7 @@ async function getAccountData(key: string) {
 
 async function getId(eMail: string) {
   client.connect();
-  const collection = client.db("gamePayy").collection("users");
+  const collection = client.db("gamepayy").collection("users");
 
   const userData = await collection.findOne({ email: eMail });
   return userData;
