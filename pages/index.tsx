@@ -207,7 +207,7 @@ const Home: NextPage = () => {
   return (
     <>
       {session ? (
-        <div className="text-white justify-content bg-gray-900 px-4 h-screen">
+        <div className="text-white justify-content bg-gray-900 px-4 h-full">
           <h1>Link Epic games account</h1>
           <p>To link your account, first login with your google account</p>
           <p>Retrieve the Authorization code at the following link:</p>
