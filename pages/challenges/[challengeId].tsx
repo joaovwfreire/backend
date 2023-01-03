@@ -17,11 +17,11 @@ const Challenge = () => {
             </span>
           </h2>
           <div className="flex flex-row justify-evenly space-x-4">
-            <button className="bg-black text-red-500 px-4 py-2 w-24 rounded-full">
-              {12}
+            <button className="bg-black text-green-500 px-4 py-2 w-24 rounded-full">
+              Started
             </button>
             <button className="bg-black text-gray-400 px-4 py-2 rounded-full">
-              PC/Xbox/PS5
+              PC
             </button>
             <button className="bg-black text-blue-500 px-4 py-2 rounded-full">
               Free
@@ -59,7 +59,7 @@ const Challenge = () => {
                 <RiCoinFill size={40} color="black" />
               </div>
               <div>
-                <h2 className="text-black">2000</h2>
+                <h2 className="text-black">1st badge</h2>
               </div>
             </div>
           </div>
@@ -72,19 +72,19 @@ const Challenge = () => {
             <div>
               <h4 className="text-primary">SEASON START</h4>
             </div>
-            <p>June 01, 00:00 am EST</p>
+            <p>January 03, 12:00 am EST</p>
           </div>
           <div className="space-y-3">
             <div>
               <h4 className="text-primary">SKILL LEVEL</h4>
             </div>
-            <p>Amateur</p>
+            <p>All</p>
           </div>
           <div className="space-y-3">
             <div>
               <h4 className="text-primary">PLATFORM</h4>
             </div>
-            <p>Xbox/PS/PC</p>
+            <p>PC</p>
           </div>
           <div className="space-y-3">
             <div>
@@ -96,7 +96,7 @@ const Challenge = () => {
             <div>
               <h4 className="text-primary">SEASON END</h4>
             </div>
-            <p>June 03, 00:00 am EST</p>
+            <p>February 01, 12:00 am EST</p>
           </div>
           <div className="space-y-3">
             <div>
@@ -108,13 +108,13 @@ const Challenge = () => {
             <div>
               <h4 className="text-primary">TEAM SIZE</h4>
             </div>
-            <p>1v1</p>
+            <p>SQUAD</p>
           </div>
           <div className="space-y-3">
             <div>
               <h4 className="text-primary">PC PLAYERS</h4>
             </div>
-            <p>Not Allowed</p>
+            <p>Allowed</p>
           </div>
         </div>
       </div>

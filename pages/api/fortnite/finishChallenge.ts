@@ -40,10 +40,10 @@ export default async function handler(
 
         const response = await checkChallenge(initial_response, currentStats, requirements);
         if (response){
-          res.status(200).json("Challenge solved");   
+          res.status(200).json({message: "Challenge solved"});   
         }else {
           
-          res.status(200).json("Challenge not solved");
+          res.status(400).json({message: "Challenge not solved"});
         }   
     } catch (e) {
       res.status(400).json(e);
