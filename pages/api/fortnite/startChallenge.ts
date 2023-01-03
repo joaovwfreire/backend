@@ -31,7 +31,7 @@ export default async function handler(
             { upsert: true }
           );
 
-      res.status(200).json({Message: "Challenge succesfully processed", upsertAction});
+      res.status(200).json({message: "Challenge succesfully processed", upsertAction});
     } catch (e) {
       res.status(400).json(e);
     }

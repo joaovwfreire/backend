@@ -13,7 +13,7 @@ import Link from "next/link";
 
 import axios from "axios";
 
-const Home: NextPage = ({ facts }: any) => {
+const Home: NextPage = ({ facts }: any) => { 
   const address = useAddress();
   const { data: session, status } = useSession();
   const userEmail = session?.user?.email as string;
@@ -27,6 +27,33 @@ const Home: NextPage = ({ facts }: any) => {
   const [lastmodified, setLastmodified] = useState("");
   const [showstats, setShowstats] = useState(false);
   const [count, setCount] = useState("");
+  const [userId, setUserId] = useState("");
+
+  const startChallenge = async() => {
+    event?.preventDefault();
+
+    toast.loading("Starting challenge");
+    await axios({
+      method: "post",
+      url: "/api/fortnite/startChallenge",
+      data: {
+        game_id: userId,
+        challenge_id: 1
+      },
+    })
+      .then((response) => {
+        //setEpicName(response?.data?.userName);
+        console.log(response)
+        toast.success(`${response.data.message}.`);
+        toast.loading("Updating database");
+      })
+      .catch((e) => {
+        console.log(e)
+        toast.error(
+          `${e.message}`
+        );
+      });
+  }
 
   var countDownDate = new Date("Jan 5, 2023 15:37:25").getTime();
 
@@ -68,7 +95,7 @@ const Home: NextPage = ({ facts }: any) => {
         setEpicName(response?.data?.userName);
         toast.success(`Succesfully fetched ${epicName}.`);
         toast.loading("Updating database");
-
+        setUserId(response?.data?.id);
         addGameIdToDatabase(response?.data?.id);
         fetchGameData(response?.data?.id);
       })
@@ -277,12 +304,12 @@ const Home: NextPage = ({ facts }: any) => {
                 </div>
                 <div className="grid grid-cols-2 px-6 gap-x-3">
                   {/* card1 */}
-                  <Link href={"/challenges/1"}>
+                  <Link href={"/"}>
                     <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover.png')] h-[230px] w-full bg-cover">
                       <div className="flex flex-row justify-between p-6 h-full">
                         <div className="flex flex-col justify-between">
                           <h3 className="flex flex-row items-center text-white">
-                            Fortnite summer challenge{" "}
+                            First ever Challenge!{"Reach top6 squads."}
                             <span>
                               <RiSwordFill size="24" color="#FF6AF6" />
                             </span>
@@ -292,7 +319,7 @@ const Home: NextPage = ({ facts }: any) => {
                               Started
                             </button>
                             <button className="bg-black text-gray-400 px-4 py-2 rounded-full">
-                              PC/Xbox/PS5
+                              PC
                             </button>
                             <button className="bg-black text-blue-500 px-4 py-2 rounded-full">
                               Free
@@ -310,7 +337,7 @@ const Home: NextPage = ({ facts }: any) => {
                             </div>
                             <div className="flex flex-col">
                               <div className="text-[#AAB4BF]">Team Size</div>
-                              <div>All</div>
+                              <div>Squad</div>
                             </div>
                             <div className="flex flex-col">
                               <div className="text-[#AAB4BF]">Region</div>
@@ -321,7 +348,7 @@ const Home: NextPage = ({ facts }: any) => {
 
                         <div className="flex flex-col justify-between">
                           <div>
-                            <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20">
+                            <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20" onClick={startChallenge}>
                               JOIN
                             </button>
                           </div>
@@ -332,7 +359,7 @@ const Home: NextPage = ({ facts }: any) => {
                                 <span>
                                   <RiCoinFill size={24} color="FFC700" />
                                 </span>
-                                3000
+                                1st badge
                               </h2>
                             </div>
                           </div>
