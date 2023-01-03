@@ -13,17 +13,17 @@ import Link from "next/link";
 
 import axios from "axios";
 
-const Home: NextPage = ({ facts }: any) => {
+const Home: NextPage = () => {
   const address = useAddress();
   const { data: session, status } = useSession();
   const userEmail = session?.user?.email as string;
   const [epicGamesAuthCode, setEpicGamesAuthCode] = useState("");
-  const [epicName, setEpicName] = useState("");
+  const [kills, setKills] = useState("");
   const [score, setScore] = useState("");
+  const [winrate, setWinrate] = useState("");
+  const [epicName, setEpicName] = useState("");
   const [matches, setMatches] = useState("");
   const [wins, setWins] = useState("");
-  const [kills, setKills] = useState("");
-  const [winrate, setWinrate] = useState("");
   const [lastmodified, setLastmodified] = useState("");
   const [showstats, setShowstats] = useState(false);
   const [count, setCount] = useState("");
@@ -153,6 +153,7 @@ const Home: NextPage = ({ facts }: any) => {
     })
       .then((res: any) => {
         if (res.status == 200) {
+          console.log(res);
           setScore(res.data.overall.score);
           setMatches(res.data.overall.matches);
           setKills(res.data.overall.kills);
@@ -176,6 +177,7 @@ const Home: NextPage = ({ facts }: any) => {
   };
 
   const checkUser = async () => {
+    toast.loading("Checking Account");
     await axios({
       method: "post",
       url: `/api/fortnite/getId`,
@@ -185,7 +187,9 @@ const Home: NextPage = ({ facts }: any) => {
     })
       .then((res: any) => {
         if (res.status == 200) {
-          return res.data;
+          setUserId(res.data.gameId);
+          fetchGameData(res.data.gameId as string);
+          toast.success("Account Found!");
         } else {
           if (res.message) {
             toast.error(res.message);
@@ -199,26 +203,6 @@ const Home: NextPage = ({ facts }: any) => {
         toast.error(e);
       });
   };
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await axios.request({
-  //         method: "post",
-  //         url: `/api/fortnite/getId`,
-  //         data: {
-  //           email: session?.user?.email,
-  //         },
-  //       });
-
-  //       setAccountLinked(response.data);
-  //     } catch (error: any) {
-  //       // setError(error.message);
-  //     } finally {
-  //       // setLoaded(true);
-  //     }
-  //   })();
-  // }, [accountLinked]);
 
   return (
     <>
@@ -293,7 +277,7 @@ const Home: NextPage = ({ facts }: any) => {
               <div className="text-sm text-gray-500 mt-1">
                 Authorization key{" "}
               </div>
-              <span className="">
+              <span className="space-x-2">
                 <button
                   type="submit"
                   onClick={linkAccountToEmail}
@@ -301,8 +285,12 @@ const Home: NextPage = ({ facts }: any) => {
                 >
                   Link account
                 </button>
-                <button type="submit" onClick={checkUser}>
-                  Check
+                <button
+                  className="bg-transparent border-2 border-primary px-6 py-1 hover:bg-green-400/20"
+                  type="submit"
+                  onClick={checkUser}
+                >
+                  Check Account
                 </button>
               </span>
             </div>
@@ -349,7 +337,7 @@ const Home: NextPage = ({ facts }: any) => {
                       <div className="flex flex-row justify-between p-6 h-full">
                         <div className="flex flex-col justify-between">
                           <h3 className="flex flex-row items-center text-white">
-                            First ever Challenge!{"Reach top6 squads."}
+                            First ever Challenge! {" Reach top6 Squads"}
                             <span>
                               <RiSwordFill size="24" color="#FF6AF6" />
                             </span>
@@ -418,12 +406,12 @@ const Home: NextPage = ({ facts }: any) => {
                   </Link>
 
                   {/* card 2 */}
-                  <Link href={"/challenges/2"}>
+                  <Link href={"/"}>
                     <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover1.png')] h-[230px] w-full bg-cover">
                       <div className="flex flex-row justify-between p-6 h-full">
                         <div className="flex flex-col justify-between">
                           <h3 className="flex flex-row items-center text-white">
-                            Fortnite summer challenge{" "}
+                            Fortnite Winter Challenge{" "}
                             <span>
                               <RiTrophyFill size="24" color="#FF8A00" />
                             </span>

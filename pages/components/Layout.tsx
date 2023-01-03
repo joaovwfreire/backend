@@ -13,7 +13,7 @@ const Layout = ({ children }: any) => {
         <Sidebar />
       </div>
       <div className="w-full">
-        {session ? <Navbar session={session!} /> : <NotSignedInNav />}
+        {session ? <Navbar session={session} /> : <NotSignedInNav />}
 
         <main>{children}</main>
       </div>
