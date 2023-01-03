@@ -295,10 +295,10 @@ const Home: NextPage = () => {
               </span>
             </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col h-screen bg-gray-900">
             <h3>Game Stats</h3>
             {showstats ? (
-              <div className="flex flex-col">
+              <div className="flex flex-col h-full bg-gray-900">
                 <div className="flex flex-row px-2 space-x-10 items-start">
                   <div>
                     <Image
@@ -330,7 +330,7 @@ const Home: NextPage = () => {
                 <div>
                   <h2>Challenges</h2>
                 </div>
-                <div className="grid grid-cols-2 gap-x-3">
+                <div className="grid grid-cols-2 px-6 gap-x-3">
                   {/* card1 */}
                   <Link href={"/"}>
                     <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover.png')] h-[230px] w-full bg-cover">
@@ -472,14 +472,18 @@ const Home: NextPage = () => {
                 </div>
               </div>
             ) : (
-              <p className="text-primary">Link your account to see the stats</p>
+              <div className="bg-gray-900">
+                <p className="text-primary">
+                  Link your account to see the stats
+                </p>
+              </div>
             )}
           </div>
         </div>
       ) : (
         <div className="flex bg-gray-900 h-screen flex-row">
           <div className="flex flex-col w-full">
-            <div className="text-gray-200">No linked account</div>
+            <div className="text-gray-200">Login to see game stats</div>
           </div>
         </div>
       )}
