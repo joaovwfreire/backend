@@ -55,6 +55,31 @@ const Home: NextPage = ({ facts }: any) => {
       });
   }
 
+  const finishChallenge = async() => {
+    event?.preventDefault();
+
+    toast.loading("Checking challenge completion");
+    await axios({
+      method: "post",
+      url: "/api/fortnite/finishChallenge",
+      data: {
+        game_id: userId,
+        challenge_id: 1
+      },
+    })
+      .then((response) => {
+        //setEpicName(response?.data?.userName);
+        console.log(response)
+        toast.success(`${response.data.message}.`);
+      })
+      .catch((e) => {
+        console.log(e)
+        toast.error(
+          `${e.response.data.message}`
+        );
+      });
+  }
+
   var countDownDate = new Date("Jan 5, 2023 15:37:25").getTime();
 
   // Counter
@@ -350,6 +375,9 @@ const Home: NextPage = ({ facts }: any) => {
                           <div>
                             <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20" onClick={startChallenge}>
                               JOIN
+                            </button>
+                            <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20 mt-2" onClick={finishChallenge}>
+                              Finish
                             </button>
                           </div>
                           <div className="flex flex-col items-end">
