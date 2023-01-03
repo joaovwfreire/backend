@@ -330,7 +330,7 @@ const Home: NextPage = () => {
                 <div>
                   <h2>Challenges</h2>
                 </div>
-                <div className="grid grid-cols-2 px-6 gap-x-3">
+                <div className="grid grid-cols-2 gap-x-3">
                   {/* card1 */}
                   <Link href={"/"}>
                     <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover.png')] h-[230px] w-full bg-cover">
