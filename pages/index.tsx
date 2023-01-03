@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useSession, getSession } from "next-auth/react";
 
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import toast from "react-hot-toast";
 import { RiSwordFill, RiCoinFill, RiTrophyFill } from "react-icons/ri";
@@ -13,7 +13,7 @@ import Link from "next/link";
 
 import axios from "axios";
 
-const Home: NextPage = ({ facts }: any) => {
+const Home: NextPage = () => {
   const address = useAddress();
   const { data: session, status } = useSession();
   const userEmail = session?.user?.email as string;
@@ -27,9 +27,9 @@ const Home: NextPage = ({ facts }: any) => {
   const [lastmodified, setLastmodified] = useState("");
   const [showstats, setShowstats] = useState(false);
   const [count, setCount] = useState("");
+  const [accountLinked, setAccountLinked] = useState(null);
 
   var countDownDate = new Date("Jan 5, 2023 15:37:25").getTime();
-
   // Counter
   var x = setInterval(function () {
     var now = new Date().getTime();
@@ -138,7 +138,7 @@ const Home: NextPage = ({ facts }: any) => {
     })
       .then((res: any) => {
         if (res.status == 200) {
-          console.log(res.data);
+          return res.data;
         } else {
           if (res.message) {
             toast.error(res.message);
@@ -152,6 +152,26 @@ const Home: NextPage = ({ facts }: any) => {
         toast.error(e);
       });
   };
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await axios.request({
+  //         method: "post",
+  //         url: `/api/fortnite/getId`,
+  //         data: {
+  //           email: session?.user?.email,
+  //         },
+  //       });
+
+  //       setAccountLinked(response.data);
+  //     } catch (error: any) {
+  //       // setError(error.message);
+  //     } finally {
+  //       // setLoaded(true);
+  //     }
+  //   })();
+  // }, [accountLinked]);
 
   return (
     <>
@@ -424,28 +444,3 @@ const Home: NextPage = ({ facts }: any) => {
 };
 
 export default Home;
-
-function fetchFact() {
-  //Just a simple get request which gets back a fact in a JSON object
-  return axios
-    .get("https://uselessfacts.jsph.pl//random.json?language=en")
-    .then((res) => {
-      return res.data;
-    });
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const sessions = await getSession();
-  const promises = [...new Array(Number(10))].map(() => fetchFact());
-
-  const facts = await Promise.all(promises);
-  //console.log(facts);
-  console.log("Hi from the server!");
-  console.log("Count:", sessions);
-  console.log("Facts:", facts);
-  return {
-    props: {
-      facts,
-    },
-  };
-};
