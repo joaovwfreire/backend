@@ -4,7 +4,6 @@ import env from "@beam-australia/react-env";
 
 
 
-
 export const authOptions: NextAuthOptions = {
   // https://next-auth.js.org/configuration/providers
   providers: [
