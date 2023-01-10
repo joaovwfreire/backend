@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@beam-australia/react-env": "^3.1.1",
     "@thirdweb-dev/react": "^3.6.8",
     "@thirdweb-dev/sdk": "^3.6.8",
     "dotenv": "^16.0.3",
