@@ -157,7 +157,7 @@ const Profile = () => {
             <p className="text-gray-200">15/09/2022</p>
           </div>
         </div>
-        <div>Medal Tabs</div>
+        <div>Tabs</div>
       </div>
     </div>
   );
