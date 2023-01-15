@@ -52,7 +52,7 @@ export default async function handler(
           .updateOne(
             { challengeId: challengeId, gameId: gameId },
             {  // $set: { challengeId: 1, gameId: gameId, status: "started"},
-                $setOnInsert: { challengeId: challengeId, gameId: gameId, start: Math.ceil(Date.now()/1000), status: "started", initialStats: stats }
+                $setOnInsert: { challengeId: challengeId, gameId: gameId, start: Math.ceil(Date.now()/1000), status: "started-non-repeatable", initialStats: stats }
             },
             { upsert: true }
           );

@@ -1,11 +1,10 @@
 import type { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
 import Image from "next/image";
 
 import { useSession, getSession } from "next-auth/react";
 
-import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
-import { useState, useEffect, useRef } from "react";
+import { useAddress } from "@thirdweb-dev/react";
+import { useState } from "react";
 
 import toast from "react-hot-toast";
 import { RiSwordFill, RiCoinFill, RiTrophyFill } from "react-icons/ri";
@@ -49,7 +48,7 @@ const Home: NextPage = () => {
       })
       .catch((e) => {
         console.log(e);
-        toast.error(`${e.message}`);
+        toast.error(`${e.response.data.message}`);
       });
   };
 

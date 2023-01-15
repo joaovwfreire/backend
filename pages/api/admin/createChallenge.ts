@@ -38,7 +38,7 @@ export default async function handler(
           .updateOne(
             { challengeId: Math.ceil(Date.now()/1000), gameId: gameId },
             {  // $set: { challengeId: 1, gameId: gameId, status: "started"},
-                $setOnInsert: { challengeId: Math.ceil(Date.now()/1000), gameId: gameId, duration: duration, expiry: expiry, statusChange: statusChange, entryFee: entryFee, prize: prize, difficulty: difficulty, winnersAmount: 0, firstWinnerId: '' }
+                $setOnInsert: { challengeId: Math.ceil(Date.now()/1000), gameId: gameId, duration: duration, expiry: expiry, statusChange: statusChange, entryFee: entryFee, prize: parseInt(prize), difficulty: difficulty, winnersAmount: 0, firstWinnerId: '' }
             },
             { upsert: true }
           );

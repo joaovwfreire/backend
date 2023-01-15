@@ -28,7 +28,7 @@ export default async function handler(
         const getAction = await db
           .collection("challengeInstances")
           .findOne(
-            { challengeId: challengeId, gameId: gameId, status: "started" }
+            { challengeId: challengeId, gameId: gameId, status: "started-non-repeatable" }
           );
 
        const initial_response = getAction?.initialStats.overall; 
@@ -56,7 +56,7 @@ export default async function handler(
           .collection("challengeInstances")
           .updateOne(
             { challengeId: challengeId, gameId: gameId },
-            {   $set: { status: "expired", finish: finishTimestamp, finalStats: currentStats}
+            {   $set: { status: "finished-non-repeatable", finish: finishTimestamp, finalStats: currentStats}
             }
           );
 
@@ -69,11 +69,11 @@ export default async function handler(
 
         if (response){
           
-          const upsertAction = await db
+        const upsertAction = await db
           .collection("challengeInstances")
           .updateOne(
             { challengeId: challengeId, gameId: gameId },
-            {   $set: { status: "finished", finish: Math.ceil(Date.now()/1000), finalStats: currentStats}
+            {   $set: { status: "finished-non-repeatable", finish: Math.ceil(Date.now()/1000), finalStats: currentStats}
             }
           );
 
@@ -86,7 +86,7 @@ export default async function handler(
             );
 
           res.status(200).json({message: "Challenge solved"});   
-        }else {
+        }else { 
           
           res.status(400).json({message: "Challenge not solved"});
         }   
