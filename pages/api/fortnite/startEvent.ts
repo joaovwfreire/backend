@@ -44,7 +44,7 @@ export default async function handler(
        const initialTimestamp = getAction?.start;
 
        if (initial_response != null || initial_response2 != null || initital_response3 != null){
-        res.status(400).json({message: "Active challenge in progress or non-repeatable."});
+        res.status(400).json({message: "Challenge non-repeatable."});
        }
 
         const upsertAction = await db
