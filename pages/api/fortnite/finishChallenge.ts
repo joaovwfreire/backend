@@ -72,7 +72,7 @@ export default async function handler(
           const upsertAction = await db
           .collection("challengeInstances")
           .updateOne(
-            { challengeId: challengeId, gameId: gameId },
+            { challengeId: challengeId, gameId: gameId, status: "started" },
             {   $set: { status: "finished", finish: Math.ceil(Date.now()/1000), finalStats: currentStats}
             }
           );

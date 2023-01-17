@@ -44,13 +44,13 @@ export default async function handler(
        const initialTimestamp = getAction?.start;
 
        if (initial_response != null || initial_response2 != null || initital_response3 != null){
-        res.status(400).json({message: "Active challenge in progress or non-repeatable."});
+        res.status(400).json({message: "Active challenge in progress."});
        }
 
         const upsertAction = await db
           .collection("challengeInstances")
           .updateOne(
-            { challengeId: challengeId, gameId: gameId },
+            { challengeId: challengeId, gameId: gameId, status: "started" },
             {  // $set: { challengeId: 1, gameId: gameId, status: "started"},
                 $setOnInsert: { challengeId: challengeId, gameId: gameId, start: Math.ceil(Date.now()/1000), status: "started", initialStats: stats }
             },
