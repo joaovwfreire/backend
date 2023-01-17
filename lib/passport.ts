@@ -1,5 +1,7 @@
 import passport from "passport";
-import SteamStrategy from "passport-steam";
+const SteamStrategy = require('passport-steam');
+
+
 
 passport.serializeUser(function(user, done) {
 	done(null, user);
