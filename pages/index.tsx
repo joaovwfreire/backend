@@ -28,7 +28,7 @@ const Home: NextPage = () => {
   const [count, setCount] = useState("");
   const [userId, setUserId] = useState("");
 
-  const startChallenge = async () => {
+  const startChallenge = async (challengeId: number) => {
     event?.preventDefault();
 
     toast.loading("Starting challenge");
@@ -37,7 +37,7 @@ const Home: NextPage = () => {
       url: "/api/fortnite/startChallenge",
       data: {
         game_id: userId,
-        challenge_id: 1,
+        challenge_id: challengeId,
       },
     })
       .then((response) => {
@@ -52,7 +52,7 @@ const Home: NextPage = () => {
       });
   };
 
-  const finishChallenge = async () => {
+  const finishChallenge = async (challengeId: number) => {
     event?.preventDefault();
 
     toast.loading("Checking challenge completion");
@@ -61,7 +61,7 @@ const Home: NextPage = () => {
       url: "/api/fortnite/finishChallenge",
       data: {
         game_id: userId,
-        challenge_id: 1,
+        challenge_id: challengeId,
       },
     })
       .then((response) => {
@@ -74,6 +74,54 @@ const Home: NextPage = () => {
         toast.error(`${e.response.data.message}`);
       });
   };
+
+  const startEvent = async (challengeId: number) => {
+    event?.preventDefault();
+
+    toast.loading("Starting challenge");
+    await axios({
+      method: "post",
+      url: "/api/fortnite/startEvent",
+      data: {
+        game_id: userId,
+        challenge_id: challengeId,
+      },
+    })
+      .then((response) => {
+        //setEpicName(response?.data?.userName);
+        console.log(response);
+        toast.success(`${response.data.message}.`);
+        toast.loading("Updating database");
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.error(`${e.response.data.message}`);
+      });
+  };
+
+  const finishEvent = async (challengeId: number) => {
+    event?.preventDefault();
+
+    toast.loading("Checking challenge completion");
+    await axios({
+      method: "post",
+      url: "/api/fortnite/finishEvent",
+      data: {
+        game_id: userId,
+        challenge_id: challengeId,
+      },
+    })
+      .then((response) => {
+        //setEpicName(response?.data?.userName);
+        console.log(response);
+        toast.success(`${response.data.message}.`);
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.error(`${e.response.data.message}`);
+      });
+  };
+
 
   var countDownDate = new Date("Jan 5, 2023 15:37:25").getTime();
   // Counter
@@ -377,13 +425,13 @@ const Home: NextPage = () => {
                           <div>
                             <button
                               className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20"
-                              onClick={startChallenge}
+                              onClick={() => startChallenge(1)}
                             >
                               JOIN
                             </button>
                             <button
                               className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20 mt-2"
-                              onClick={finishChallenge}
+                              onClick={() => finishChallenge(1)}
                             >
                               Finish
                             </button>
@@ -407,6 +455,229 @@ const Home: NextPage = () => {
                   {/* card 2 */}
                   <Link href={"/"}>
                     <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover1.png')] h-[230px] w-full bg-cover">
+                    <div className="flex flex-row justify-between p-6 h-full">
+                        <div className="flex flex-col justify-between">
+                          <h3 className="flex flex-row items-center text-white">
+                            Challenge #2! {" Reach top3 Squads"}
+                            <span>
+                              <RiSwordFill size="24" color="#FF6AF6" />
+                            </span>
+                          </h3>
+                          <div className="flex flex-row justify-evenly items-start">
+                            <button className="bg-black text-primary px-4 py-2 rounded-full">
+                              Started
+                            </button>
+                            <button className="bg-black text-gray-400 px-4 py-2 rounded-full">
+                              PC
+                            </button>
+                            <button className="bg-black text-blue-500 px-4 py-2 rounded-full">
+                              Free
+                            </button>
+                          </div>
+
+                          <div className="grid grid-cols-2 grid-rows-2">
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Entry Fee</div>
+                              <div>Free</div>
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Skill Level</div>
+                              <div>All</div>
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Team Size</div>
+                              <div>Squad</div>
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Region</div>
+                              <div>All</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col justify-between">
+                          <div>
+                            <button
+                              className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20"
+                              onClick={() => startChallenge(2)}
+                            >
+                              JOIN
+                            </button>
+                            <button
+                              className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20 mt-2"
+                              onClick={() => finishChallenge(2)}
+                            >
+                              Finish
+                            </button>
+                          </div>
+                          <div className="flex flex-col items-end">
+                            <div>PRIZE POOL</div>
+                            <div>
+                              <h2 className="flex flex-row items-center text-white">
+                                <span>
+                                  <RiCoinFill size={24} color="FFC700" />
+                                </span>
+                                1st badge
+                              </h2>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* card 3 */}
+                  <Link href={"/"}>
+                    <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover.png')] h-[230px] w-full bg-cover my-2">
+                      <div className="flex flex-row justify-between p-6 h-full">
+                        <div className="flex flex-col justify-between">
+                          <h3 className="flex flex-row items-center text-white">
+                            Challenge #3! {"Win at any game mode"}
+                            <span>
+                              <RiSwordFill size="24" color="#FF6AF6" />
+                            </span>
+                          </h3>
+                          <div className="flex flex-row justify-evenly items-start">
+                            <button className="bg-black text-primary px-4 py-2 rounded-full">
+                              Started
+                            </button>
+                            <button className="bg-black text-gray-400 px-4 py-2 rounded-full">
+                              PC
+                            </button>
+                            <button className="bg-black text-blue-500 px-4 py-2 rounded-full">
+                              Free
+                            </button>
+                          </div>
+
+                          <div className="grid grid-cols-2 grid-rows-2">
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Entry Fee</div>
+                              <div>Free</div>
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Skill Level</div>
+                              <div>All</div>
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Team Size</div>
+                              <div>Squad</div>
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Region</div>
+                              <div>All</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col justify-between">
+                          <div>
+                            <button
+                              className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20"
+                              onClick={() => startChallenge(3)}
+                            >
+                              JOIN
+                            </button>
+                            <button
+                              className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20 mt-2"
+                              onClick={() => finishChallenge(3)}
+                            >
+                              Finish
+                            </button>
+                          </div>
+                          <div className="flex flex-col items-end">
+                            <div>PRIZE POOL</div>
+                            <div>
+                              <h2 className="flex flex-row items-center text-white">
+                                <span>
+                                  <RiCoinFill size={24} color="FFC700" />
+                                </span>
+                                1st badge
+                              </h2>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* card 2 */}
+                  <Link href={"/"}>
+                    <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover1.png')] h-[230px] w-full bg-cover my-2">
+                    <div className="flex flex-row justify-between p-6 h-full">
+                        <div className="flex flex-col justify-between">
+                          <h3 className="flex flex-row items-center text-white">
+                            One time event! {" Reach top6 Squads"}
+                            <span>
+                              <RiSwordFill size="24" color="#FF6AF6" />
+                            </span>
+                          </h3>
+                          <div className="flex flex-row justify-evenly items-start">
+                            <button className="bg-black text-primary px-4 py-2 rounded-full">
+                              Started
+                            </button>
+                            <button className="bg-black text-gray-400 px-4 py-2 rounded-full">
+                              PC
+                            </button>
+                            <button className="bg-black text-blue-500 px-4 py-2 rounded-full">
+                              Free
+                            </button>
+                          </div>
+
+                          <div className="grid grid-cols-2 grid-rows-2">
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Entry Fee</div>
+                              <div>Free</div>
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Skill Level</div>
+                              <div>All</div>
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Team Size</div>
+                              <div>Squad</div>
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Region</div>
+                              <div>All</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col justify-between">
+                          <div>
+                            <button
+                              className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20"
+                              onClick={() => startEvent(4)}
+                            >
+                              JOIN
+                            </button>
+                            <button
+                              className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20 mt-2"
+                              onClick={() => finishEvent(4)}
+                            >
+                              Finish
+                            </button>
+                          </div>
+                          <div className="flex flex-col items-end">
+                            <div>PRIZE POOL</div>
+                            <div>
+                              <h2 className="flex flex-row items-center text-white">
+                                <span>
+                                  <RiCoinFill size={24} color="FFC700" />
+                                </span>
+                                1st badge
+                              </h2>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/*}
+                  
+                  <Link href={"/"}>
+                    <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover1.png')] h-[230px] w-full bg-cover my-2">
                       <div className="flex flex-row justify-between p-6 h-full">
                         <div className="flex flex-col justify-between">
                           <h3 className="flex flex-row items-center text-white">
@@ -467,7 +738,7 @@ const Home: NextPage = () => {
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </Link>*/}
                 </div>
               </div>
             ) : (
