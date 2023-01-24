@@ -1,5 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../../../server/mongo/middleware/mongodb";
+import SteamIDConverter from "../../../../utils/steamIdConverter.js";
+
 import axios from "axios";
 
 export default async function handler(
@@ -7,22 +9,16 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   
-    
     const steamId = req.query.steam_id;
+
+    const steamId3 = SteamIDConverter.toSteamID3(steamId);
 
     if (req.method === "GET") {
       try {
-        console.log(process.env.TRN_API_KEY)
-
         let response = await axios.get(
-            `https://public-api.tracker.gg/v2/csgo/standard/profile/steam/${steamId}`,
-            {
-              headers: {
-                'TRN-Api-Key': 'c4778ee4-2b57-4243-9ec9-a397afa8ebd8'
-              }
-            }
+            `https://api.opendota.com/api/players/${steamId3}/recentMatches`,
+            
           );
-          console.log(response)
 
           res.json(response.data)
         
