@@ -52,6 +52,54 @@ const Home: NextPage = () => {
       });
   };
 
+  const startCsGoChallenge = async (challengeId: number) => {
+    event?.preventDefault();
+
+    toast.loading("Starting challenge");
+    await axios({
+      method: "post",
+      url: "/api/fortnite/startChallenge",
+      data: {
+        game_id: userId,
+        challenge_id: challengeId,
+      },
+    })
+      .then((response) => {
+        //setEpicName(response?.data?.userName);
+        console.log(response);
+        toast.success(`${response.data.message}.`);
+        toast.loading("Updating database");
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.error(`${e.response.data.message}`);
+      });
+  };
+
+  const startDotaChallenge = async (challengeId: number) => {
+    event?.preventDefault();
+
+    toast.loading("Starting challenge");
+    await axios({
+      method: "post",
+      url: "/api/fortnite/startChallenge",
+      data: {
+        game_id: userId,
+        challenge_id: challengeId,
+      },
+    })
+      .then((response) => {
+        //setEpicName(response?.data?.userName);
+        console.log(response);
+        toast.success(`${response.data.message}.`);
+        toast.loading("Updating database");
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.error(`${e.response.data.message}`);
+      });
+  };
+
   const finishChallenge = async (challengeId: number) => {
     event?.preventDefault();
 
@@ -674,24 +722,24 @@ const Home: NextPage = () => {
                     </div>
                   </Link>
 
-                  {/*}
+              
                   
                   <Link href={"/"}>
-                    <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/cover1.png')] h-[230px] w-full bg-cover my-2">
+                    <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/dota_cover.png')] h-[230px] w-full bg-cover my-2">
                       <div className="flex flex-row justify-between p-6 h-full">
                         <div className="flex flex-col justify-between">
                           <h3 className="flex flex-row items-center text-white">
-                            Fortnite Winter Challenge{" "}
+                            DOTA 2 - Match that lasts 1500+ seconds with zero deaths.{" "}
                             <span>
                               <RiTrophyFill size="24" color="#FF8A00" />
                             </span>
                           </h3>
                           <div className="flex flex-row justify-evenly items-start">
-                            <button className="bg-black text-red-500 px-4 py-2 w-24 rounded-full">
+                            <button className="bg-black text-green-500 px-4 py-2 w-24 rounded-full">
                               {count}
                             </button>
                             <button className="bg-black text-gray-400 px-4 py-2 rounded-full">
-                              PC/Xbox/PS5
+                              PC
                             </button>
                             <button className="bg-black text-blue-500 px-4 py-2 rounded-full">
                               Free
@@ -720,7 +768,9 @@ const Home: NextPage = () => {
 
                         <div className="flex flex-col justify-between">
                           <div>
-                            <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20">
+                            <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20"
+                            onClick={() => startDotaChallenge(6)}
+                            >
                               JOIN
                             </button>
                           </div>
@@ -738,7 +788,73 @@ const Home: NextPage = () => {
                         </div>
                       </div>
                     </div>
-                  </Link>*/}
+                  </Link>
+                  {/* card 3 */}
+                  <Link href={"/"}>
+                    <div className="backdrop-blur-md bg-no-repeat bg-[url('/assets/csgo_cover.png')] h-[230px] w-full bg-cover">
+                      <div className="flex flex-row justify-between p-6 h-full">
+                        <div className="flex flex-col justify-between">
+                          <h3 className="flex flex-row items-center text-white">
+                            CS:Go: 17 kills at your next match{" "}
+                            <span>
+                              <RiTrophyFill size="24" color="#FF8A00" />
+                            </span>
+                          </h3>
+                          <div className="flex flex-row justify-evenly items-start">
+                            <button className="bg-black text-green-500 px-4 py-2 w-24 rounded-full">
+                              {count}
+                            </button>
+                            <button className="bg-black text-gray-400 px-4 py-2 rounded-full">
+                              PC
+                            </button>
+                            <button className="bg-black text-blue-500 px-4 py-2 rounded-full">
+                              Free
+                            </button>
+                          </div>
+
+                          <div className="grid grid-cols-2 grid-rows-2">
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Entry Fee</div>
+                              <div>Free</div>
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Skill Level</div>
+                              <div>All</div>
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Team Size</div>
+                              <div>All</div>
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[#AAB4BF]">Region</div>
+                              <div>All</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col justify-between">
+                          <div>
+                            <button className="bg-transparent border-2 border-primary px-[20px] py-[12px] w-[114px] hover:bg-green-400/20"
+                            onClick={() => startCsGoChallenge(5)}
+                            >
+                              JOIN
+                            </button>
+                          </div>
+                          <div className="flex flex-col items-end">
+                            <div>PRIZE POOL</div>
+                            <div>
+                              <h2 className="flex flex-row items-center text-white">
+                                <span>
+                                  <RiCoinFill size={24} color="FFC700" />
+                                </span>
+                                2000
+                              </h2>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
               </div>
             ) : (
