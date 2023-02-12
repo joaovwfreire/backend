@@ -1,6 +1,7 @@
 import axios from "axios";
 import client from "../server/mongo/dbSetup";
 const { Client } = require("fnbr");
+import SteamIDConverter from "./steamIdConverter.js";
 
 async function getAccountData(key: string) {
   const auth = { authorizationCode: key };
@@ -38,4 +39,33 @@ async function getStats(id: number) {
   }
 }
 
-export { getAccountData, getId, getStats };
+async function getCsgoPlayerStats(id: number) {
+  let response = await axios.get(
+    `https://public-api.tracker.gg/v2/csgo/standard/profile/steam/${id}`,
+    {
+      headers: {
+        "TRN-Api-Key": `${process.env.TRN_API_KEY}`,
+      },
+    }
+  );
+
+  if (response.status == 200) {
+    const stats = response.data.data.stats.all;
+
+    return stats;
+  } else {
+    return response.status;
+  }
+}
+
+async function getDota2Matches(steamId: number){
+    const steamId3 = SteamIDConverter.toSteamID3(steamId);
+    let response = await axios.get(
+        `https://api.opendota.com/api/players/${steamId3}/matches`,
+        
+      );
+
+      return response.data
+}
+
+export { getAccountData, getId, getStats, getCsgoPlayerStats, getDota2Matches };
