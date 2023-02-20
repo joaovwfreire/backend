@@ -24,7 +24,7 @@ export default async function handler(
           .collection("users")
           .updateOne(
             { email: email },
-            { $set: { gameId: gameId } },
+            { $set: { gameId: gameId }, $setOnInsert: { balance: 0 } },
             { upsert: true }
           );
         res.status(201).json(upsertAction);
